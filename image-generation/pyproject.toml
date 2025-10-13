@@ -1,0 +1,10 @@
+[project]
+name = "pylm-utilities"
+version = "0.1.0"
+description = "set de utilidades usando modelos de lenguaje para tareas simples. No es un agente, solo una utilidad sobre pensada"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "requests>=2.32.5",
+    "together>=1.5.26",
+]
