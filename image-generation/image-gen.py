@@ -312,7 +312,7 @@ from together import Together
 
 # --- 1. Configuración Hardcodeada y Constantes ---
 
-API_KEY_TOGETHER = 'f892615cb036408187782fead6f72ac1cd031c5fa9d52cc2acc1850a6aa0cbee'
+API_KEY_TOGETHER = 'YOUR_API_KEY'
 MODEL_NAME = "black-forest-labs/FLUX.1-schnell-Free" 
 WIDTH = 1024
 HEIGHT = 1024
