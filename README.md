@@ -1,6 +1,6 @@
 # Pyllm Utilities
 
-> [!info]
+> [!INFO]
 >
 > Se pronuncia:
 > _Paeei~yyllmm_
