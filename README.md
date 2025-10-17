@@ -36,8 +36,8 @@ mejor conocidos como "Jack of All Trades" en espanol la mejor traduccion es
     imageCompletion = client.images.generate(
         model="black-forest-labs/FLUX.1-schnell-Free",
         width=1024,
-        height=768,
-        steps=28,
+        height=1024,
+        steps=4,
         prompt="Draw an anime style version of this image.",
         image_url="https://huggingface.co/datasets/patrickvonplaten/random_img/resolve/main/yosemite.png",
     )
@@ -45,4 +45,23 @@ mejor conocidos como "Jack of All Trades" en espanol la mejor traduccion es
     print(imageCompletion.data[0].url)
     ```
 
-###### Aqui hay que recalcar que esta linea `client = Together()` esta declarando que asume que el valor de la llave API esta presente como variable en el entorno de forma global. Si este no es el caso 
+###### Aqui hay que recalcar que esta linea `client = Together()` esta declarando que asume que el valor de la llave
+si este no es el caso se tendria que declarar en la forma `client = Together(api_key="YOUR_API_KEY")` :
+
+    ```python
+    from together import Together
+    
+    client = Together(api_key="YOUR_API_KEY")
+
+    imageCompletion = client.images.generate(
+        model="black-forest-labs/FLUX.1-schnell-Free",
+        width=1024,
+        height=768,
+        steps=4,
+        prompt="Draw an anime style version of this image.",
+        image_url="https://huggingface.co/datasets/patrickvonplaten/random_img/resolve/main/yosemite.png",
+    )
+
+    print(imageCompletion.data[0].url)
+    ```
+

@@ -1,0 +1,15 @@
+[project]
+name = "media-detailer"
+version = "0.1.0"
+description = "utilidad para extraer los metadatos y datos necesarios que youtube pide para compartir contenido"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "click>=8.3.0",
+    "google-generativeai>=0.5.4",
+    "openpyxl>=3.1.5",
+    "pandas>=2.3.3",
+    "opencv-python>=4.9.0",
+    "pytesseract>=0.3.10",
+    "python-dotenv>=1.0.1",
+]
