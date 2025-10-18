@@ -1,0 +1,30 @@
+[project]
+name = "content-scheduler"
+version = "0.1.0"
+description = "utilidad para programar la fecha y hora de pubicacion de contenido para youtube, usando la api de youtube YouTube Data 3.0 API"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "google-api-python-client>=2.185.0",
+    "google-auth-oauthlib>=1.2.2",
+    "pandas>=2.3.3",
+]
+
+[project.optional-dependencies]
+dev = [
+    "ruff",
+    "pytest",
+]
+
+[tool.pytest.ini_options]
+pythonpath = [".", "src"]
+
+[tool.ruff]
+line-length = 88
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I"]
+ignore = []
+
+[tool.ruff.format]
+quote-style = "double"
