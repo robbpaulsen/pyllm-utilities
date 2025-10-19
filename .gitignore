@@ -162,3 +162,5 @@ tocken.pickle
 client_secrets.json
 CLAUDE.md
 GEMINI.md
+media-detailer/videos/*
+!media-detailer/videos/.gitkeep

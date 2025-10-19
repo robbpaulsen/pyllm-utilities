@@ -18,29 +18,29 @@ Este documento describe el plan de desarrollo por fases para el proyecto `Conten
 **Objetivo:** Establecer una base sólida, segura y estandarizada para el proyecto.
 
 - **Tarea 0.1: Estructura del Proyecto y Dependencias**
-  - [ ] Crear un directorio `src/content_scheduler` para el código fuente y `tests/` para las pruebas.
-  - [ ] Mover los scripts `uploader.py` y `scheduler.py` a `src/content_scheduler/`.
-  - [ ] Crear `__init__.py` en los directorios necesarios para definirlos como paquetes.
-  - [ ] Activar el entorno virtual con `uv`.
-  - [ ] Añadir dependencias de producción (`google-api-python-client`, `google-auth-oauthlib`, `pandas`) con `uv add`.
-  - [ ] Añadir dependencias de desarrollo (`ruff`, `pytest`) con `uv add --dev`.
+  - [x] Crear un directorio `src/content_scheduler` para el código fuente y `tests/` para las pruebas.
+  - [x] Mover los scripts `uploader.py` y `scheduler.py` a `src/content_scheduler/`.
+  - [x] Crear `__init__.py` en los directorios necesarios para definirlos como paquetes.
+  - [x] Activar el entorno virtual con `uv`.
+  - [x] Añadir dependencias de producción (`google-api-python-client`, `google-auth-oauthlib`, `pandas`) con `uv add`.
+  - [x] Añadir dependencias de desarrollo (`ruff`, `pytest`) con `uv add --dev`.
 
 - **Tarea 0.2: Módulo de Autenticación (Reutilizable)**
-  - [ ] Crear un script `src/content_scheduler/auth.py`.
-  - [ ] Implementar la función `get_authenticated_service()` que maneje el flujo OAuth 2.0.
-  - [ ] Asegurarse de que los secretos (`client_secrets.json`, `token.pickle`, etc.) estén en `.gitignore`.
+  - [x] Crear un script `src/content_scheduler/auth.py`.
+  - [x] Implementar la función `get_authenticated_service()` que maneje el flujo OAuth 2.0.
+  - [x] Asegurarse de que los secretos (`client_secrets.json`, `token.pickle`, etc.) estén en `.gitignore`.
 
 - **Tarea 0.3: Módulo de Configuración**
-  - [ ] Crear un script `src/content_scheduler/config.py`.
-  - [ ] Definir variables para rutas (`pathlib.Path`), scopes de la API y valores por defecto.
+  - [x] Crear un script `src/content_scheduler/config.py`.
+  - [x] Definir variables para rutas (`pathlib.Path`), scopes de la API y valores por defecto.
 
 - **Tarea 0.4: Configuración del Logging**
-  - [ ] Crear un módulo `src/content_scheduler/logging_config.py`.
-  - [ ] Configurar un logger que escriba en consola y en un archivo (`content_scheduler.log`).
+  - [x] Crear un módulo `src/content_scheduler/logging_config.py`.
+  - [x] Configurar un logger que escriba en consola y en un archivo (`content_scheduler.log`).
 
 - **Tarea 0.5: Pruebas de Configuración Inicial**
-  - [ ] Crear una prueba simple en `tests/test_initial_setup.py` que importe los módulos creados para asegurar que la estructura del proyecto y las importaciones funcionen correctamente.
-  - [ ] Ejecutar `pytest` para validar.
+  - [x] Crear una prueba simple en `tests/test_initial_setup.py` que importe los módulos creados para asegurar que la estructura del proyecto y las importaciones funcionen correctamente.
+  - [x] Ejecutar `pytest` para validar.
 
 ---
 
@@ -49,23 +49,23 @@ Este documento describe el plan de desarrollo por fases para el proyecto `Conten
 **Objetivo:** Desarrollar el script que sube los videos a YouTube en modo privado y recolecta sus IDs.
 
 - **Tarea 1.1: Lógica Principal del Uploader**
-  - [ ] Implementar la lógica para listar archivos de video de un directorio.
-  - [ ] Iterar sobre cada archivo, llamando a la función de carga.
+  - [x] Implementar la lógica para listar archivos de video de un directorio.
+  - [x] Iterar sobre cada archivo, llamando a la función de carga.
 
 - **Tarea 1.2: Interacción con la API y Recolección de IDs**
-  - [ ] Implementar la función que ejecuta la llamada `videos().insert()` con `status='private'`.
-  - [ ] Capturar y almacenar los `video_id` retornados.
-  - [ ] Guardar los IDs en un archivo CSV.
+  - [x] Implementar la función que ejecuta la llamada `videos().insert()` con `status='private'`.
+  - [x] Capturar y almacenar los `video_id` retornados.
+  - [x] Guardar los IDs en un archivo CSV.
 
 - **Tarea 1.3: Feedback, Errores y Calidad de Código**
-  - [ ] Integrar el logger para informar el progreso y los errores.
-  - [ ] Implementar `try...except` para manejar fallos en la carga de videos individuales.
-  - [ ] Ejecutar `ruff format .` y `ruff check .` para limpiar el código.
+  - [x] Integrar el logger para informar el progreso y los errores.
+  - [x] Implementar `try...except` para manejar fallos en la carga de videos individuales.
+  - [x] Ejecutar `ruff format .` y `ruff check .` para limpiar el código.
 
 - **Tarea 1.4: Pruebas Unitarias del Uploader**
-  - [ ] Crear `tests/test_uploader.py`.
-  - [ ] Escribir una prueba que simule (`mock`) la llamada a la API y verifique que la función de carga procesa la respuesta y extrae el ID correctamente.
-  - [ ] Ejecutar `pytest` para validar.
+  - [x] Crear `tests/test_uploader.py`.
+  - [x] Escribir una prueba que simule (`mock`) la llamada a la API y verifique que la función de carga procesa la respuesta y extrae el ID correctamente.
+  - [x] Ejecutar `pytest` para validar.
 
 ---
 
