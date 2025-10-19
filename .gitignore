@@ -158,9 +158,12 @@ dmypy.json
 .roomodes
 
 # secrets
-tocken.pickle
+content_scheduler/token.pickle
 client_secrets.json
 CLAUDE.md
 GEMINI.md
-media-detailer/videos/*
-!media-detailer/videos/.gitkeep
+content_scheduler/videos/*
+media-detail-extractor/videos/*
+media-detail-extractor/catalogo_videos.xlsx
+!media-detail-extractor/videos/.gitkeep
+content_scheduler/video_ids.csv

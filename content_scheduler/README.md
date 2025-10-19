@@ -131,9 +131,7 @@ Los hashtags se integran directamente en las propiedades de texto `snippet.title
 
 El script de programación (`script_2_schedule.py`) construye y envía un objeto JSON similar a este para cada video:
 
-JSON
-
-```
+```json
 {
   "id": "TU_VIDEO_ID_GENERADO",
   "snippet": {
@@ -152,3 +150,26 @@ JSON
   }
 }
 ```
+
+# Subir tus videos a tu canal de YouTube:
+
+## **Con tu entorno virtual activado, habiendo instalado las dependencias y ya con tus credenciales
+`client_secrets.json` en la raiz del directorio de la utilidad, navega al directorio `src/` del proyecto. 
+Aqui ejecutaras:
+
+```python
+uv run -m content_scheduler.uploader
+```
+
+Se abrira tu navegador y te dirigira a que escojas la identidad o correo al que esta unido tu canal
+de YouTube, detenidamente si tienes mas de un correo escoge el correcto ya que el equivocarte involucra
+muchos dolores de cabeza. 
+
+Ya que escogiste la cuenta correcta aceptas que estas conciente que una aplicacion
+quiere conectarse a tu cuenta, aceptas todo y ya se valida el acceso, y la utilidad inicia el procesamiento 
+de todos los videos que esten en el directori `videos/`.
+
+Al terminar esribira un archivo CSV con los identificdores de tus videos, nombre, y estado de publicacion. 
+
+Por el momento todos se cargan con el estado de privados, ya que es necesario si quieres poder despues programar
+la publicacion de cada uno en una fecha y hora especifica.**
