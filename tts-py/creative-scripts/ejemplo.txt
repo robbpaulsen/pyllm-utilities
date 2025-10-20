@@ -1,0 +1,9 @@
+Hola, bienvenido a TTS-py, tu herramienta de síntesis de voz con clonación basada en referencia.
+
+Este es un guion de ejemplo que puedes usar para probar la funcionalidad del proyecto.
+
+TTS-py utiliza Chatterbox, un modelo de código abierto de ResembleAI, capaz de generar audio natural y clonar voces a partir de muestras de referencia.
+
+Puedes usar este archivo como plantilla para tus propios proyectos creativos: audiolibros, podcasts, narraciones para videos, o cualquier contenido de audio que imagines.
+
+¡Diviértete creando!

@@ -167,3 +167,4 @@ media-detail-extractor/videos/*
 media-detail-extractor/catalogo_videos.xlsx
 !media-detail-extractor/videos/.gitkeep
 content_scheduler/video_ids.csv
+tts-py\recursos-chatterbox.md
