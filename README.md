@@ -27,43 +27,44 @@ en rapidez y balance de calidad de imagenes. Es un modelo del tipo `SOTA` o
 mejor conocidos como "Jack of All Trades" en espanol la mejor traduccion es
 "El Caballo de Batalla".
 
-* `SAMPLE CODE:`
-    ```python
-    from together import Together
+`SAMPLE CODE:`
+```python
+  from together import Together
+  client = Together()
 
-    client = Together()
+  imageCompletion = client.images.generate(
+    model="black-forest-labs/FLUX.1-schnell-Free",
+    width=1024,
+    height=1024,
+    steps=4,
+    prompt="Draw an anime style version of this image.",
+    image_url="https://huggingface.co/datasets/patrickvonplaten/random_img/resolve/main/yosemite.png",
+  )
 
-    imageCompletion = client.images.generate(
-        model="black-forest-labs/FLUX.1-schnell-Free",
-        width=1024,
-        height=1024,
-        steps=4,
-        prompt="Draw an anime style version of this image.",
-        image_url="https://huggingface.co/datasets/patrickvonplaten/random_img/resolve/main/yosemite.png",
-    )
+  print(imageCompletion.data[0].url)
+```
 
-    print(imageCompletion.data[0].url)
-    ```
+#### Aqui hay que recalcar que esta linea `client = Together()` esta declarando que asume que el valor de la llave
 
-###### Aqui hay que recalcar que esta linea `client = Together()` esta declarando que asume que el valor de la llave
-si este no es el caso se tendria que declarar en la forma `client = Together(api_key="YOUR_API_KEY")` :
+si este no es el caso se tendria que declarar en la forma: `client = Togethe(api_key="YOUR_API_KEY")`
 
-    ```python
-    from together import Together
+```python
+  from together import Together
     
-    client = Together(api_key="YOUR_API_KEY")
+  client = Together(api_key="YOUR_API_KEY")
 
-    imageCompletion = client.images.generate(
-        model="black-forest-labs/FLUX.1-schnell-Free",
-        width=1024,
-        height=768,
-        steps=4,
-        prompt="Draw an anime style version of this image.",
-        image_url="https://huggingface.co/datasets/patrickvonplaten/random_img/resolve/main/yosemite.png",
-    )
+  imageCompletion = client.images.generate(
+      model="black-forest-labs/FLUX.1-schnell-Free",
+      width=1024,
+      height=768,
+      steps=4,
+      prompt="Draw an anime style version of this image.",
+      image_url="https://huggingface.co/datasets/patrickvonplaten/random_img/resolve/main/yosemite.png",
+  )
 
-    print(imageCompletion.data[0].url)
-    ```
+  print(imageCompletion.data[0].url)
+```
+
 ---
 
 # Media Detail Extractor
@@ -100,17 +101,17 @@ Antes de ejecutar el script, asegúrate de tener lo siguiente:
 
 2. **Instala las dependencias**: Este proyecto usa `uv` para la gestión de paquetes. Abre una terminal en el directorio del proyecto y ejecuta:
 
-    ```bash
-    uv pip sync pyproject.toml
-    ```
+```bash
+uv pip sync pyproject.toml
+```
 
 3. **Crea el archivo de entorno**: En el directorio raíz del proyecto, crea un archivo llamado `.env`.
 
 4. **Configura tu API Key**: Abre el archivo `.env` y añade tu clave de API de Google de la siguiente manera:
 
-    ```
-    GOOGLE_API_KEY="TU_CLAVE_DE_API_AQUI"
-    ```
+```ini
+GOOGLE_API_KEY="TU_CLAVE_DE_API_AQUI"
+```
 
 ## Modo de Uso
 
@@ -118,15 +119,15 @@ La herramienta se ejecuta desde la línea de comandos. Puedes pasarle la ruta a 
 
 * **Para procesar un solo archivo de video:**
 
-    ```bash
-    uv run .\media-detailer.py "C:\ruta\completa\a\tu\video.mp4"
-    ```
+```bash
+uv run .\media-detailer.py "C:\ruta\completa\a\tu\video.mp4"
+```
 
 * **Para procesar un directorio completo de forma recursiva:**
 
-    ```bash
-    uv run .\media-detailer.py "C:\ruta\completa\a\tu\carpeta_de_videos"
-    ```
+```bash
+uv run .\media-detailer.py "C:\ruta\completa\a\tu\carpeta_de_videos"
+```
 
 ## Archivo de Salida: `catalogo_videos.xlsx`
 
