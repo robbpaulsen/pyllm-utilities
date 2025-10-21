@@ -24,10 +24,10 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 logger = logging.getLogger(__name__)
 
 class TranscriptorGPU:
-    def __init__(self, device_id=0, enable_flash_attention=True):
+    def __init__(self, device_id=0, enable_flash_attention=True, ignore_warning=True):
         """Inicializa el transcriptor con optimizaciones para RTX 3060"""
         self.device = f"cuda:{device_id}" if torch.cuda.is_available() else "cpu"
-        self.torch_dtype = torch.float16 if torch.cuda.is_available() else torch.float32
+        self.dtype = torch.float16 if torch.cuda.is_available() else torch.float32
         
         # Verificar GPU
         if torch.cuda.is_available():
@@ -44,7 +44,7 @@ class TranscriptorGPU:
         logger.info("📥 Cargando modelo Whisper Large v3 Turbo...")
         self.model = AutoModelForSpeechSeq2Seq.from_pretrained(
             self.model_id,
-            torch_dtype=self.torch_dtype,
+            dtype=self.dtype,
             low_cpu_mem_usage=True,
             use_safetensors=True,
             attn_implementation="flash_attention_2" if enable_flash_attention and self.device != "cpu" else "eager"
@@ -69,7 +69,7 @@ class TranscriptorGPU:
             max_new_tokens=128,
             chunk_length_s=30,
             batch_size=16 if self.device != "cpu" else 1,  # Mayor batch para GPU
-            torch_dtype=self.torch_dtype,
+            dtype=self.dtype,
             device=self.device,
         )
         
