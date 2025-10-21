@@ -1,0 +1,7 @@
+[project]
+name = "media-stitcher"
+version = "0.1.0"
+description = "Poderosa utilidad capaz de manipular archivos de video multimedia para separalos o unirlos, recortar audio, bajar la felocidad de reproduccion del audio, integrar audio al video o video al audio. Otro shameless Wrapper de FFmpeg"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = []

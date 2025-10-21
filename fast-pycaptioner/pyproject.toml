@@ -1,0 +1,29 @@
+[project]
+name = "fast-pycaptioner"
+version = "0.1.0"
+description = "Micro utilidad ASR, usa como motor al modelo mas conocido que no sera nombrado. Puede generar subtítulos, crear notas de las grabaciones de tus clases o juntas por zoom para incluirlas en algún reporte, etc"
+readme = "README.md"
+requires-python = ">=3.10,<3.11"
+dependencies = [
+    "accelerate>=0.24.0",
+    "optimum",
+    "sentencepiece",
+    "tqdm",
+    "transformers>=4.36.0",
+    # torch, torchaudio y flash-attn se instalan manualmente
+    # para evitar conflictos con versiones de CUDA
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+    "black>=24.0.0",
+    "ruff>=0.7.0",
+]
+
+[dev]
+dependency-groups = []
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"

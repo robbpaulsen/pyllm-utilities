@@ -1,0 +1,9 @@
+# Dependencias base (sin PyTorch ni Flash Attention)
+transformers>=4.36.0
+accelerate>=0.24.0
+optimum
+tqdm
+sentencepiece
+
+# IMPORTANTE: PyTorch y Flash Attention se instalan manualmente
+# Ver instrucciones en README.md o ejecutar instalar.sh
