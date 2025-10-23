@@ -142,11 +142,25 @@ El script creará o actualizará un archivo Excel con la siguiente estructura:
 
 ---
 
-🤖 Automatización de Carga y Programación Masiva en YouTube 🎥
-🚀 Descripción del Proyecto
-Este proyecto es un conjunto de scripts de Python diseñados para automatizar y acelerar el proceso de subir y programar videos en YouTube, utilizando la YouTube Data API v3.
+# Content-Scheduler
+
+### 🤖 Automatización de Carga y Programación Masiva en YouTube 🎥
+
+### 🚀 Descripción del Proyecto
+
+Este proyecto es un conjunto de **scripts de Python** diseñados para **automatizar y acelerar** el proceso de subir y programar videos en YouTube, utilizando la **YouTube Data API v3**.
 
 La solución se enfoca en resolver un cuello de botella común: el tiempo que se invierte en configurar manualmente la metadata (título, descripción, etiquetas, fecha) video por video. Al separar la carga masiva (rápida) de la programación masiva (rápida), se busca reducir un proceso que podría tomar horas (ej. 8 horas para 30 videos) a solo minutos.
+
+```bash
+content_scheduler/
+├── uploader.py      # Script principal ejecutable
+├── pyproject.toml   # Dependencias mínimas
+├── scheduler.py     # Prgrama hora y dia de publicacion
+├── CHANGELOG.md     # Tracker de cambios
+├── TODO.md          # tareas pendientes por hacer
+└── README.md        # Instrucciones básicas
+```
 
 <br>
 
