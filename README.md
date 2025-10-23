@@ -69,13 +69,13 @@ si este no es el caso se tendria que declarar en la forma: `client = Togethe(api
 
 # Media Detail Extractor
 
-# Generador de Contenido SEO para YouTube
+### Generador de Contenido SEO para YouTube
 
 Esta es una herramienta de línea de comandos diseñada para automatizar la creación de metadatos optimizados para videos de YouTube. El script procesa archivos de video, extrae su contenido de texto mediante OCR y utiliza el modelo de IA Gemini 2.0 Flash de Google para generar títulos, descripciones y etiquetas (tags) listos para publicar.
 
 Además, gestiona un catálogo en formato Excel con una cola de publicación automática.
 
-## Funcionalidades Principales
+### Funcionalidades Principales
 
 * **Procesamiento en Lote**: Procesa un único archivo de video o un directorio completo de forma recursiva.
 * **Extracción por OCR**: Utiliza Tesseract-OCR para leer subtítulos incrustados (hardsubs) directamente de los fotogramas del video.
@@ -86,7 +86,7 @@ Además, gestiona un catálogo en formato Excel con una cola de publicación aut
 * **Catálogo en Excel**: Guarda automáticamente toda la información generada en un archivo `catalogo_videos.xlsx`.
 * **Programación Automática**: Calcula y asigna una fecha y hora de publicación para cada video, siguiendo un patrón de 6 videos diarios (6 AM, 8 AM, 10 AM, 12 PM, 2 PM, 4 PM).
 
-## Requisitos Previos
+### Requisitos Previos
 
 Antes de ejecutar el script, asegúrate de tener lo siguiente:
 
@@ -95,7 +95,7 @@ Antes de ejecutar el script, asegúrate de tener lo siguiente:
     * Puedes descargarlo desde la [wiki de Tesseract en GitHub](https://github.com/UB-Mannheim/tesseract/wiki).
 3. **Clave de API de Google**: Necesitas una clave de API para el servicio de Gemini. Puedes obtenerla en [Google AI Studio](https://aistudio.google.com/app/apikey).
 
-## Instalación y Configuración
+### Instalación y Configuración
 
 1. **Clona o descarga el proyecto** en tu máquina local.
 
@@ -113,7 +113,7 @@ uv pip sync pyproject.toml
 GOOGLE_API_KEY="TU_CLAVE_DE_API_AQUI"
 ```
 
-## Modo de Uso
+### Modo de Uso
 
 La herramienta se ejecuta desde la línea de comandos. Puedes pasarle la ruta a un solo archivo de video o a una carpeta que contenga múltiples videos.
 
@@ -129,7 +129,7 @@ uv run .\media-detailer.py "C:\ruta\completa\a\tu\video.mp4"
 uv run .\media-detailer.py "C:\ruta\completa\a\tu\carpeta_de_videos"
 ```
 
-## Archivo de Salida: `catalogo_videos.xlsx`
+### Archivo de Salida: `catalogo_videos.xlsx`
 
 El script creará o actualizará un archivo Excel con la siguiente estructura:
 
@@ -139,3 +139,89 @@ El script creará o actualizará un archivo Excel con la siguiente estructura:
 | ... | otro_video.mov | ... | ... | ... | ... | ... |
 
 * **Hashtags (Tags)**: Esta columna contiene la lista de etiquetas separadas por comas, listas para ser pegadas en el campo "Etiquetas" de YouTube.
+
+---
+
+🤖 Automatización de Carga y Programación Masiva en YouTube 🎥
+🚀 Descripción del Proyecto
+Este proyecto es un conjunto de scripts de Python diseñados para automatizar y acelerar el proceso de subir y programar videos en YouTube, utilizando la YouTube Data API v3.
+
+La solución se enfoca en resolver un cuello de botella común: el tiempo que se invierte en configurar manualmente la metadata (título, descripción, etiquetas, fecha) video por video. Al separar la carga masiva (rápida) de la programación masiva (rápida), se busca reducir un proceso que podría tomar horas (ej. 8 horas para 30 videos) a solo minutos.
+
+<br>
+
+---
+
+<br>
+
+# **Fast PyTranscriptor 🎤**
+Utilidad de transcripción de audio multi-idioma optimizada para GPU con procesamiento en paralelo.
+
+Características ✨
+Multi-idioma: Soporte para 100+ idiomas (especializado en español/inglés)
+Procesamiento en paralelo: Procesa múltiples archivos simultáneamente
+Optimizado para GPU: Aprovecha tu GPU con Flash Attention 2
+Flexible: Acepta archivos individuales o directorios completos
+Múltiples formatos: Salida en texto plano o subtítulos SRT
+Traducción: Puede traducir automáticamente al inglés
+
+<br>
+
+---
+
+<br>
+
+# **Media-Stitcher**
+
+Wrapper de FFmpeg para post-producción de videos de YouTube con soporte GPU
+
+Media-Stitcher es una utilidad Python que proporciona una interfaz simple y confiable para las operaciones más comunes de manipulación multimedia usando FFmpeg, con aceleración GPU NVIDIA opcional.
+
+🎯 Propósito
+Eliminar dependencias de servicios externos para tareas esenciales de post-producción:
+
+Unir múltiples segmentos de video/audio (intro + cuerpo + outro)
+Integrar audio TTS en videos de background
+Ajustar velocidad de audio sin alterar el tono
+Acelerar procesamiento con GPU NVIDIA (opcional)
+
+<br>
+
+---
+
+<br>
+
+# TTS-py 🎙️
+
+**Síntesis de Voz con Clonación Basada en Referencia de Audio**
+
+[![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![uv](https://img.shields.io/badge/package%20manager-uv-blueviolet)](https://github.com/astral-sh/uv)
+
+TTS-py es una utilidad de línea de comandos ligera y potente para **convertir texto a audio con clonación de voz**. Utiliza Chatterbox TTS de ResembleAI para generar audio natural con la capacidad de imitar voces a partir de muestras de referencia.
+
+---
+
+## ✨ Características
+
+* 🎯 **CLI Simple y Directa** - Interfaz de línea de comandos intuitiva
+* 🎙️ **Clonación de Voz** - Genera audio imitando cualquier voz de referencia
+* 🚀 **Aceleración GPU** - Detección automática de NVIDIA CUDA
+* 📝 **Múltiples Entradas** - Texto directo o archivos de guion
+* 🎵 **Formatos Soportados** - WAV, MP3, FLAC para audio de referencia
+* 💾 **Cache de Voces** - Sistema inteligente para reutilizar voces procesadas
+* 📊 **Barra de Progreso** - Indicador visual en tiempo real
+* 💻 **Workflow Moderno** - Gestión de paquetes con `uv`
+* 🔧 **Robusto** - Manejo de errores y validaciones completas
+
+---
+
+## 🎯 Casos de Uso
+
+* 📖 **Audiolibros personalizados** - Convierte tus notas o textos a audio
+* 🎬 **Producción de videos** - Narraciones con voces personalizadas
+* 🎭 **Historias multi-personaje** - Genera voces distintas para cada personaje
+* 🎙️ **Podcasts** - Producción de contenido de audio
+* 📝 **Documentos a audio** - Escucha tus apuntes mientras haces otras cosas
+* 🎮 **Voces para juegos** - Crea voces para personajes de proyectos creativos
