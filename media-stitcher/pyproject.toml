@@ -1,7 +1,17 @@
 [project]
 name = "media-stitcher"
-version = "0.1.0"
-description = "Poderosa utilidad capaz de manipular archivos de video multimedia para separalos o unirlos, recortar audio, bajar la felocidad de reproduccion del audio, integrar audio al video o video al audio. Otro shameless Wrapper de FFmpeg"
+version = "0.3.0"
+description = "Wrapper de FFmpeg para post-producción de videos con soporte GPU, CLI y funciones avanzadas"
 readme = "README.md"
 requires-python = ">=3.11"
-dependencies = []
+dependencies = [
+    "tqdm>=4.66.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4.0",
+]
+
+[project.scripts]
+media-stitcher = "media_stitcher.cli:main"
