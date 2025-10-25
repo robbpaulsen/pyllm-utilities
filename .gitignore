@@ -1,0 +1,183 @@
+# Dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Environment Variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env.*.local
+
+# Build Outputs
+dist/
+dist-ssr/
+build/
+out/
+.next/
+.nuxt/
+.cache/
+.parcel-cache/
+.vite/
+
+# Testing
+coverage/
+.nyc_output/
+*.lcov
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# IDE & Editor
+.vscode/
+!.vscode/extensions.json
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+*.sublime-project
+*.sublime-workspace
+
+# OS
+.DS_Store
+Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+
+# Temporary Files
+*.tmp
+*.temp
+.tmp/
+.temp/
+
+# Database
+*.sqlite
+*.sqlite3
+*.db
+
+# TypeScript
+*.tsbuildinfo
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Optional stylelint cache
+.stylelintcache
+
+# Microbundle cache
+.rpt2_cache/
+.rts2_cache_cjs/
+.rts2_cache_es/
+.rts2_cache_umd/
+
+# Optional REPL history
+.node_repl_history
+
+# Output of 'npm pack'
+*.tgz
+
+# Yarn
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
+.pnp.*
+
+# dotenv environment variable files
+.env.development
+.env.production
+
+# Serverless
+.serverless/
+
+# FuseBox cache
+.fusebox/
+
+# DynamoDB Local files
+.dynamodb/
+
+# TernJS port file
+.tern-port
+
+# Stores VSCode versions used for testing VSCode extensions
+.vscode-test
+
+# Vercel
+.vercel
+
+# Local development
+.local/
+
+# Storybook
+storybook-static/
+
+# Debug
+debug.log
+
+# Python
+*.pyc
+__pycache__/
+.venv/
+venv/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Image Share Data
+/image-share-data/
+.bmad-core
+.claude
+.clinerules
+.gemini
+.roomodes
+
+# secrets
+content_scheduler/token.pickle
+client_secrets.json
+CLAUDE.md
+GEMINI.md
+content_scheduler/videos/*
+media-detail-extractor/videos/*
+media-detail-extractor/catalogo_videos.xlsx
+!media-detail-extractor/videos/.gitkeep
+content_scheduler/video_ids.csv
+tts-py\recursos-chatterbox.md
+!fast-pycaptioner/audio-samples/.gitkeep
+!fast-pycaptioner/output/.gitkeep
+tts-py/recursos-chatterbox.md
+tts-py/project-description.md
+media-stitcher/media_stitcher/__pycache__
+!media-stitcher/tests/.gitkeep
+!media-stitcher/video-samples/.gitkeep
+media-stitcher/.pytest_cache/*
+media-stitcher/media_stitcher.egg-info
+media-stitcher/media_stitcher.egg-info/*
+--pycache__/*
+!project-correlations/analyses/.gitkeep
+project-correlations/analyses/*
