@@ -160,8 +160,6 @@ dmypy.json
 # secrets
 content_scheduler/token.pickle
 client_secrets.json
-CLAUDE.md
-GEMINI.md
 content_scheduler/videos/*
 media-detail-extractor/videos/*
 media-detail-extractor/catalogo_videos.xlsx
