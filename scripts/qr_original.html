@@ -1,0 +1,210 @@
+<!-- templates/qr.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Share Your Photos</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Lucida Sans', monospace;
+            background: linear-gradient(270deg,
+                    #36cc6e, #00c3aa, #00b4e3, #009eff, #007cf9,
+                    #007df9, #007efa, #007ffa, #00a5ff, #00c5ff,
+                    #00e2fd, #5ffbf1);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .qr-container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 60px 40px;
+            border-radius: 30px;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
+            max-width: 500px;
+            width: 100%;
+        }
+
+        .header {
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 3em;
+            margin-bottom: 15px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+        }
+
+        .header p {
+            font-size: 1.3em;
+            opacity: 0.9;
+            line-height: 1.4;
+        }
+
+        .qr-section {
+            margin: 40px 0;
+        }
+
+        .qr-code {
+            background: #817ce1;
+            padding: 12px;
+            border-radius: 20px;
+            display: inline-block;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            margin-bottom: 30px;
+        }
+
+        .qr-code img {
+            width: 250px;
+            height: 250px;
+            display: block;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .instructions {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 20px;
+            margin-top: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .instructions h2 {
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            color: #FFD700;
+        }
+
+        .step {
+            font-size: 1.2em;
+            margin: 15px 0;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .step:last-child {
+            border-bottom: none;
+        }
+
+        .step-number {
+            display: inline-block;
+            width: 35px;
+            height: 35px;
+            background: #FFD700;
+            color: #333;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 35px;
+            font-weight: bold;
+            margin-right: 15px;
+        }
+
+        .footer {
+            margin-top: 30px;
+            opacity: 0.8;
+            font-size: 1.1em;
+        }
+
+        .navigation {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 10px 20px;
+            border-radius: 25px;
+            backdrop-filter: blur(10px);
+        }
+
+        .navigation a {
+            color: #2690fa;
+            text-decoration: none;
+            font-size: 0.988em;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+
+        .navigation a:hover {
+            opacity: 1;
+            text-decoration: underline;
+        }
+
+        @media (max-width: 600px) {
+            .qr-container {
+                padding: 40px 20px;
+            }
+
+            .header h1 {
+                font-size: 2.2em;
+            }
+
+            .qr-code img {
+                width: 200px;
+                height: 200px;
+            }
+
+            .instructions h2 {
+                font-size: 1.5em;
+            }
+
+            .step {
+                font-size: 1.1em;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="qr-container">
+        <div class="header">
+            <h1>📸 Comparte Fotos!</h1>
+            <p>Ayudanos a Capturar Todos los Momentos Asombrosos!</p>
+        </div>
+
+        <div class="qr-section">
+            <div class="qr-code">
+                <img src="{{ qr_path }}" alt="QR para Cargar tus Fotos">
+            </div>
+        </div>
+
+        <div class="instructions">
+            <h2>🚀 Como Compartir?</h2>
+
+            <div class="step">
+                <span class="step-number">1</span>
+                Abre tu Aplicacion de Camara o Abre tus Imagenes
+            </div>
+
+            <div class="step">
+                <span class="step-number">2</span>
+                Apunta hacia el QR de Arriba
+            </div>
+
+            <div class="step">
+                <span class="step-number">3</span>
+                Presiona la Notificacion Entrante
+            </div>
+
+            <div class="step">
+                <span class="step-number">4</span>
+                Selecciona y Sube!
+            </div>
+        </div>
+
+    </div>
+</body>
+
+</html>

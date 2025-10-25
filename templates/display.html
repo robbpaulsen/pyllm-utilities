@@ -1,0 +1,692 @@
+<!-- templates/display.html - VERSIÓN CORREGIDA -->
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memory Sharing Display</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap');
+
+        :root {
+            --dark-bg-primary: #0a0a0f;
+            --dark-bg-secondary: #1a1a2e;
+            --dark-bg-tertiary: #16213e;
+            --accent-cyan: #00f5ff;
+            --accent-purple: #8b5cf6;
+            --accent-pink: #ec4899;
+            --text-primary: #e2e8f0;
+            --text-secondary: #94a3b8;
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --shadow-glow: 0 0 20px rgba(0, 245, 255, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Fira Code', 'Consolas', 'Monaco', monospace;
+            background: var(--dark-bg-primary);
+            /* FIX: Simplified gradient for better performance - no more cursor jumping */
+            background-image:
+                radial-gradient(circle at 25% 25%, var(--dark-bg-tertiary) 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, var(--dark-bg-secondary) 0%, transparent 50%);
+            color: var(--text-primary);
+            overflow: hidden;
+            min-height: 100vh;
+            /* FIX: Prevent performance issues and cursor behavior */
+            will-change: auto;
+            transform: translateZ(0);
+            backface-visibility: hidden;
+        }
+
+        /* Particles optimized for performance */
+        .background-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+            /* FIX: Optimize particle rendering */
+            will-change: transform;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: var(--accent-cyan);
+            border-radius: 50%;
+            opacity: 0.6;
+            animation: float 6s ease-in-out infinite;
+            /* FIX: Improve particle performance */
+            will-change: transform;
+            transform: translateZ(0);
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px) rotate(0deg);
+                opacity: 0.6;
+            }
+
+            50% {
+                transform: translateY(-20px) rotate(180deg);
+                opacity: 1;
+            }
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            width: 100vw;
+            padding: 0;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Header with event info */
+        .header-info {
+            position: fixed;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 15px 25px;
+            z-index: 10;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            /* FIX: Rotate to match slideshow orientation and reposition */
+            transform: rotate(90deg) translateY(-100%);
+            transform-origin: top left;
+            top: 20px;
+            left: 20px;
+        }
+
+        .header-info .status-dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background: var(--accent-cyan);
+            border-radius: 50%;
+            margin-right: 8px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 0.6;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 1;
+                transform: scale(1.2);
+            }
+        }
+
+        /* Photo counter */
+        .photo-counter {
+            position: fixed;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 15px 25px;
+            z-index: 10;
+            text-align: center;
+            min-width: 120px;
+            /* FIX: Rotate to match slideshow orientation and reposition */
+            transform: rotate(90deg) translateX(100%);
+            transform-origin: top right;
+            top: 20px;
+            right: 20px;
+        }
+
+        .photo-counter .count {
+            display: block;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent-cyan);
+            margin-bottom: 5px;
+            text-shadow: var(--shadow-glow);
+        }
+
+        .photo-counter .label {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* FIX: CRITICAL CSS CONTAINER CENTERING SOLUTION */
+        .slideshow-area {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 30px;
+            backdrop-filter: blur(20px);
+            position: fixed;
+            /* FIX: Changed from absolute to fixed */
+            overflow: hidden;
+            box-shadow:
+                0 25px 50px rgba(0, 0, 0, 0.5),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+
+            /* FIX: Perfect centering solution */
+            top: 50%;
+            left: 50%;
+            width: 85vh;
+            height: 85vw;
+            transform: translate(-50%, -50%) rotate(90deg);
+            transform-origin: center center;
+
+            /* FIX: Optimize rendering performance */
+            will-change: transform;
+            backface-visibility: hidden;
+        }
+
+        .slideshow-area::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, var(--accent-cyan), var(--accent-purple), var(--accent-pink));
+            border-radius: 32px;
+            z-index: -1;
+            opacity: 0.5;
+            animation: borderGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes borderGlow {
+
+            0%,
+            100% {
+                opacity: 0.3;
+            }
+
+            50% {
+                opacity: 0.8;
+            }
+        }
+
+        .slideshow-image {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 25px;
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            filter: brightness(1.1) contrast(1.05);
+            /* FIX: Optimize image rendering */
+            will-change: opacity, transform;
+            backface-visibility: hidden;
+        }
+
+        .slideshow-image.fade-in {
+            animation: fadeInScale 1s ease-out;
+        }
+
+        @keyframes fadeInScale {
+            0% {
+                opacity: 0;
+                transform: scale(0.9);
+                filter: blur(10px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: scale(1);
+                filter: blur(0px) brightness(1.1) contrast(1.05);
+            }
+        }
+
+        .no-photos {
+            text-align: center;
+            font-size: 2.2rem;
+            opacity: 0.8;
+            padding: 40px;
+            line-height: 1.6;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            animation: textGlow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes textGlow {
+            0% {
+                filter: brightness(1);
+            }
+
+            100% {
+                filter: brightness(1.2);
+            }
+        }
+
+        .no-photos h2 {
+            margin-bottom: 20px;
+            font-size: 1.4em;
+            font-weight: 600;
+        }
+
+        .no-photos p {
+            font-size: 0.9em;
+            opacity: 0.7;
+            color: var(--text-secondary);
+        }
+
+        /* Slideshow progress indicator */
+        .slideshow-progress {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+            z-index: 10;
+        }
+
+        .progress-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .progress-dot.active {
+            background: var(--accent-cyan);
+            box-shadow: 0 0 15px var(--accent-cyan);
+            transform: scale(1.2);
+        }
+
+        /* Loading animation */
+        .loading-spinner {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            border: 3px solid var(--glass-border);
+            border-top: 3px solid var(--accent-cyan);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            display: none;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
+
+            100% {
+                transform: translate(-50%, -50%) rotate(360deg);
+            }
+        }
+
+        /* Responsive Design - FIX: Improved mobile calculations */
+        @media screen and (max-width: 768px) {
+            .slideshow-area {
+                width: 90vh;
+                height: 90vw;
+            }
+
+            .header-info,
+            .photo-counter {
+                padding: 10px 15px;
+                font-size: 0.8rem;
+            }
+
+            .photo-counter .count {
+                font-size: 1.5rem;
+            }
+
+            .no-photos {
+                font-size: 1.6rem;
+                padding: 25px;
+            }
+        }
+
+        @media screen and (min-height: 1200px) {
+            .slideshow-area {
+                width: 75vh;
+                height: 75vw;
+            }
+
+            .no-photos {
+                font-size: 2.8rem;
+                padding: 50px;
+            }
+        }
+
+        /* Debug info for development */
+        .debug-info {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 15px;
+            padding: 10px 15px;
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            z-index: 10;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .debug-info.visible {
+            opacity: 1;
+        }
+
+        /* FIX: Performance optimizations for smoother animations */
+        .slideshow-area,
+        .slideshow-image,
+        .particle {
+            transform-style: preserve-3d;
+        }
+
+        /* FIX: Reduce animation complexity for better performance */
+        @media (prefers-reduced-motion: reduce) {
+
+            .particle,
+            .slideshow-image,
+            .borderGlow {
+                animation: none;
+            }
+
+            .slideshow-image {
+                transition: opacity 0.3s ease;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Optimized particles background -->
+    <div class="background-particles" id="particles"></div>
+
+    <div class="container">
+        <!-- Header with info -->
+        <div class="header-info">
+            <span class="status-dot"></span>
+            <span id="status-text">Sistema Activo</span>
+        </div>
+
+        <!-- Photo counter -->
+        <div class="photo-counter">
+            <span class="count" id="photo-count">0</span>
+            <span class="label">Fotos</span>
+        </div>
+
+        <!-- Main slideshow area - FIX: Now properly centered -->
+        <div class="slideshow-area">
+            <div class="loading-spinner" id="loading"></div>
+            <div id="slideshow">
+                <div class="no-photos">
+                    <h2>🎉 ¡Comparte tus Recuerdos!</h2>
+                    <p>Escanea el QR para conectarte y compartir fotos</p>
+                    <p style="font-size: 0.8em; color: var(--text-secondary); margin-top: 8px;">
+                        WiFi: {{ wifi_ssid }} | Conexión automática
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Progress indicator -->
+        <div class="slideshow-progress" id="progress-indicator"></div>
+
+        <!-- Debug info (optional) -->
+        <div class="debug-info" id="debug-info">
+            <div>Última actualización: <span id="last-update">--:--:--</span></div>
+            <div>Imágenes en cola: <span id="queue-count">0</span></div>
+        </div>
+    </div>
+
+    <script>
+        class ModernSlideshow {
+            constructor() {
+                this.slideInterval = null;
+                this.currentImages = [];
+                this.currentIndex = 0;
+                this.isDebugMode = false;
+                this.particleCount = 15; // FIX: Reduced particle count for performance
+
+                this.elements = {
+                    slideshow: document.getElementById('slideshow'),
+                    photoCount: document.getElementById('photo-count'),
+                    statusText: document.getElementById('status-text'),
+                    progressIndicator: document.getElementById('progress-indicator'),
+                    loading: document.getElementById('loading'),
+                    debugInfo: document.getElementById('debug-info'),
+                    lastUpdate: document.getElementById('last-update'),
+                    queueCount: document.getElementById('queue-count')
+                };
+
+                this.init();
+            }
+
+            init() {
+                this.createParticles();
+                this.checkForNewImages();
+                this.setupEventListeners();
+
+                // Check for images every 2 seconds
+                setInterval(() => this.checkForNewImages(), 2000);
+            }
+
+            createParticles() {
+                const particlesContainer = document.getElementById('particles');
+
+                // FIX: Reduced particle count for better performance
+                for (let i = 0; i < this.particleCount; i++) {
+                    const particle = document.createElement('div');
+                    particle.className = 'particle';
+
+                    // Random position
+                    particle.style.left = Math.random() * 100 + '%';
+                    particle.style.top = Math.random() * 100 + '%';
+
+                    // Random animation delay and duration
+                    particle.style.animationDelay = Math.random() * 6 + 's';
+                    particle.style.animationDuration = (3 + Math.random() * 4) + 's';
+
+                    particlesContainer.appendChild(particle);
+                }
+            }
+
+            setupEventListeners() {
+                // Double click for debug mode
+                document.addEventListener('dblclick', () => {
+                    this.isDebugMode = !this.isDebugMode;
+                    this.elements.debugInfo.classList.toggle('visible', this.isDebugMode);
+                });
+
+                // Keyboard shortcuts
+                document.addEventListener('keydown', (e) => {
+                    switch (e.key) {
+                        case 'ArrowRight':
+                            this.nextImage();
+                            break;
+                        case 'ArrowLeft':
+                            this.prevImage();
+                            break;
+                        case ' ':
+                            e.preventDefault();
+                            this.toggleSlideshow();
+                            break;
+                    }
+                });
+            }
+
+            async loadNextImage() {
+                try {
+                    this.showLoading(true);
+                    const response = await fetch('/api/next_image');
+                    const data = await response.json();
+
+                    if (data.image) {
+                        this.displayImage(data);
+                        this.updateProgressIndicator();
+                    } else {
+                        this.showNoPhotos();
+                    }
+
+                    this.updateDebugInfo();
+                } catch (error) {
+                    console.error('Error loading image:', error);
+                    this.elements.statusText.textContent = 'Error de Conexión';
+                } finally {
+                    this.showLoading(false);
+                }
+            }
+
+            displayImage(data) {
+                const img = document.createElement('img');
+                img.src = data.image;
+                img.alt = 'Shared memory';
+                img.className = 'slideshow-image fade-in';
+
+                // Preload image for smooth display
+                img.onload = () => {
+                    this.elements.slideshow.innerHTML = '';
+                    this.elements.slideshow.appendChild(img);
+                };
+
+                img.onerror = () => {
+                    console.error('Error loading image:', data.image);
+                    this.showNoPhotos();
+                };
+            }
+
+            showNoPhotos() {
+                this.elements.slideshow.innerHTML = `
+                    <div class="no-photos">
+                        <h2>🎉 ¡Comparte tus Recuerdos!</h2>
+                        <p>Escanea el QR para conectarte y compartir fotos</p>
+                        <p style="font-size: 0.8em; color: var(--text-secondary); margin-top: 8px;">
+                            WiFi: {{ wifi_ssid }} | Conexión automática
+                        </p>
+                    </div>
+                `;
+            }
+
+            showLoading(show) {
+                this.elements.loading.style.display = show ? 'block' : 'none';
+            }
+
+            updateProgressIndicator() {
+                if (this.currentImages.length <= 1) {
+                    this.elements.progressIndicator.innerHTML = '';
+                    return;
+                }
+
+                const maxDots = Math.min(this.currentImages.length, 5);
+                const dots = Array.from({ length: maxDots }, (_, i) => {
+                    const dot = document.createElement('div');
+                    dot.className = `progress-dot ${i === this.currentIndex % maxDots ? 'active' : ''}`;
+                    return dot.outerHTML;
+                }).join('');
+
+                this.elements.progressIndicator.innerHTML = dots;
+            }
+
+            async checkForNewImages() {
+                try {
+                    const response = await fetch('/api/images');
+                    const data = await response.json();
+
+                    // Update counter
+                    this.elements.photoCount.textContent = data.count;
+
+                    if (data.count !== this.currentImages.length) {
+                        this.currentImages = data.images;
+                        this.elements.statusText.textContent = 'Nuevas fotos detectadas';
+
+                        if (data.count > 0 && !this.slideInterval) {
+                            this.startSlideshow();
+                        } else if (data.count === 0 && this.slideInterval) {
+                            this.stopSlideshow();
+                        }
+                    } else {
+                        this.elements.statusText.textContent = 'Sistema Activo';
+                    }
+                } catch (error) {
+                    console.error('Error checking for new images:', error);
+                    this.elements.statusText.textContent = 'Error de Conexión';
+                }
+            }
+
+            startSlideshow() {
+                if (this.slideInterval) return;
+
+                this.loadNextImage();
+                this.slideInterval = setInterval(() => this.loadNextImage(), 8000);
+                this.elements.statusText.textContent = 'Slideshow Activo';
+            }
+
+            stopSlideshow() {
+                if (this.slideInterval) {
+                    clearInterval(this.slideInterval);
+                    this.slideInterval = null;
+                }
+                this.showNoPhotos();
+                this.elements.statusText.textContent = 'Sistema Activo';
+            }
+
+            toggleSlideshow() {
+                if (this.slideInterval) {
+                    this.stopSlideshow();
+                } else if (this.currentImages.length > 0) {
+                    this.startSlideshow();
+                }
+            }
+
+            nextImage() {
+                if (this.currentImages.length > 0) {
+                    this.loadNextImage();
+                }
+            }
+
+            prevImage() {
+                // This functionality would require backend API changes
+                console.log('Previous image functionality requires backend API changes');
+            }
+
+            updateDebugInfo() {
+                if (!this.isDebugMode) return;
+
+                const now = new Date();
+                this.elements.lastUpdate.textContent = now.toLocaleTimeString();
+                this.elements.queueCount.textContent = this.currentImages.length;
+            }
+        }
+
+        // Initialize the slideshow when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            new ModernSlideshow();
+        });
+    </script>
+</body>
+
+</html>
