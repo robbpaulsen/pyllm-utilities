@@ -1,0 +1,7 @@
+[project]
+name = "project-correlations"
+version = "0.1.0"
+description = "Esta utilidad ayuda a encontrar correlaciones para extender y/o mejorar tu propio se t de utulidades o programas encontrando correlaciones entre tus proyectos o codigo sample que situes dentro de un directorio"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = []

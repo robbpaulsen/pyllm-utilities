@@ -179,3 +179,5 @@ media-stitcher/.pytest_cache/*
 media-stitcher/media_stitcher.egg-info
 media-stitcher/media_stitcher.egg-info/*
 --pycache__/*
+!project-correlations/analyses/.gitkeep
+project-correlations/analyses/*
